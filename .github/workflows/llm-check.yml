@@ -14,36 +14,9 @@ on:
 
 jobs:
   llm-check:
-    runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'development' }}
-    timeout-minutes: 30
-
-    steps:
-      - name: Pull Docker image
-        run: docker pull ghcr.io/nilh2a2/data-pipeline-bot:latest
-
-      - name: Print workflow inputs
-        run: |
-          echo "=== Workflow Inputs ==="
-          echo "Environment: ${{ github.event.inputs.environment || 'development' }}"
-          echo "======================="
-
-      - name: Run LLM Check
-        env:
-          APP_ENVIRONMENT_DEV: ${{ github.event.inputs.environment == 'development' }}
-          APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
-          APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN: ${{ secrets.APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN }}
-          APP_MONITOR_GIST_API_KEY: ${{ secrets.APP_MONITOR_GIST_API_KEY }}
-          APP_EXTERNAL_SERVICE_APIFY_TOKEN: ${{ secrets.APP_EXTERNAL_SERVICE_APIFY_TOKEN }}
-          APP_EXTERNAL_SERVICE_DATAFORSEO_LOGIN: ${{ secrets.APP_EXTERNAL_SERVICE_DATAFORSEO_LOGIN }}
-          APP_EXTERNAL_SERVICE_DATAFORSEO_PASSWORD: ${{ secrets.APP_EXTERNAL_SERVICE_DATAFORSEO_PASSWORD }}
-        run: |
-          docker run --rm \
-            -e APP_ENVIRONMENT_DEV=$APP_ENVIRONMENT_DEV \
-            -e APP_DB_PASSWORD=$APP_DB_PASSWORD \
-            -e APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN=$APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN \
-            -e APP_MONITOR_GIST_API_KEY=$APP_MONITOR_GIST_API_KEY \
-            -e APP_EXTERNAL_SERVICE_APIFY_TOKEN=$APP_EXTERNAL_SERVICE_APIFY_TOKEN \
-            -e APP_EXTERNAL_SERVICE_DATAFORSEO_LOGIN=$APP_EXTERNAL_SERVICE_DATAFORSEO_LOGIN \
-            -e APP_EXTERNAL_SERVICE_DATAFORSEO_PASSWORD=$APP_EXTERNAL_SERVICE_DATAFORSEO_PASSWORD \
-            ghcr.io/nilh2a2/data-pipeline-bot:latest llm-check
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: ${{ github.event.inputs.environment || 'development' }}
+      timeout-minutes: 30
+      command: llm-check
