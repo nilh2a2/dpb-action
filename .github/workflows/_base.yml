@@ -45,6 +45,7 @@ jobs:
       - name: Run pipeline
         env:
           APP_ENVIRONMENT_DEV: ${{ inputs.environment == 'development' }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
           APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
           APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN: ${{ secrets.APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN }}
           APP_EXTERNAL_SERVICE_APIFY_TOKEN: ${{ secrets.APP_EXTERNAL_SERVICE_APIFY_TOKEN }}
@@ -53,6 +54,7 @@ jobs:
         run: |
           docker run --rm \
             -e APP_ENVIRONMENT_DEV=$APP_ENVIRONMENT_DEV \
+            -e GITHUB_RUN_ID=$GITHUB_RUN_ID \
             -e APP_DB_PASSWORD=$APP_DB_PASSWORD \
             -e APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN=$APP_EXTERNAL_SERVICE_GITHUB_API_TOKEN \
             -e APP_EXTERNAL_SERVICE_APIFY_TOKEN=$APP_EXTERNAL_SERVICE_APIFY_TOKEN \
