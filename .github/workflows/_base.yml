@@ -35,6 +35,11 @@ jobs:
       - name: Pull Docker image
         run: docker pull ghcr.io/nilh2a2/data-pipeline-bot:latest
 
+      - name: Print image info
+        run: |
+          docker inspect ghcr.io/nilh2a2/data-pipeline-bot:latest \
+            --format 'RepoTags: {{.RepoTags}}{{"\n"}}RepoDigests: {{.RepoDigests}}'
+
       - name: Print workflow inputs
         run: |
           echo "=== Workflow Inputs ==="
