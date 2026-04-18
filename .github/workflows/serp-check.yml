@@ -1,0 +1,13 @@
+name: SERP Check
+
+on:
+  workflow_dispatch:
+
+jobs:
+  serp-check:
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: development
+      timeout-minutes: 30
+      command: serp-check
