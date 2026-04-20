@@ -1,9 +1,9 @@
-name: Sitemap Trends
+name: sitemap-trends-discovery-serp
 
 on:
-  # Every 3 hours (8x per day, includes 5:00 AM Beijing time at 21:00 UTC)
+  # Every 3 hours, shortly after the main scan run.
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '15 */3 * * *'
 
   workflow_dispatch:
     inputs:
@@ -17,10 +17,10 @@ on:
         default: 'development'
 
 jobs:
-  sitemap-trends:
+  sitemap-trends-discovery-serp:
     uses: ./.github/workflows/_base.yml
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment || 'production' }}
-      timeout-minutes: 60
-      command: sitemap-trends exec
+      timeout-minutes: 30
+      command: sitemap-trends discovery-domains-serp

@@ -1,0 +1,26 @@
+name: sitemap-trends-discovery-whois
+
+on:
+  # Every 3 hours, staggered after SERP discovery.
+  schedule:
+    - cron: '30 */3 * * *'
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - development
+          - production
+        default: 'development'
+
+jobs:
+  sitemap-trends-discovery-whois:
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: ${{ github.event.inputs.environment || 'production' }}
+      timeout-minutes: 30
+      command: sitemap-trends discovery-domains-whois

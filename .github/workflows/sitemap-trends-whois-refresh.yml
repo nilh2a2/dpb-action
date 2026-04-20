@@ -1,0 +1,27 @@
+name: sitemap-trends-whois-refresh
+
+on:
+  # Every 90 minutes, staggered away from the other Sitemap Trends jobs.
+  schedule:
+    - cron: '50 */3 * * *'
+    - cron: '20 2-23/3 * * *'
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - development
+          - production
+        default: 'development'
+
+jobs:
+  sitemap-trends-whois-refresh:
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: ${{ github.event.inputs.environment || 'production' }}
+      timeout-minutes: 30
+      command: sitemap-trends whois-refresh

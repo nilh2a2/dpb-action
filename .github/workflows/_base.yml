@@ -14,7 +14,7 @@ on:
         type: number
         default: 60
       command:
-        description: 'Command to execute (e.g., "newspaper exec", "sitemap-trends exec")'
+        description: 'Command to execute (e.g., "newspaper exec", "sitemap-trends scan")'
         required: true
         type: string
 

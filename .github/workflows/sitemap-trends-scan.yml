@@ -1,0 +1,26 @@
+name: sitemap-trends-scan
+
+on:
+  # Every 3 hours (8x per day, includes 5:00 AM Beijing time at 21:00 UTC)
+  schedule:
+    - cron: '0 */3 * * *'
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - development
+          - production
+        default: 'development'
+
+jobs:
+  sitemap-trends-scan:
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: ${{ github.event.inputs.environment || 'production' }}
+      timeout-minutes: 60
+      command: sitemap-trends scan
