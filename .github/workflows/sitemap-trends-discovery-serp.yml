@@ -1,9 +1,9 @@
 name: sitemap-trends-discovery-serp
 
 on:
-  # Every 3 hours, shortly after the main scan run.
+  # Twice daily. Discovery looks at older game cohorts, so frequent polling is unnecessary.
   schedule:
-    - cron: '15 */3 * * *'
+    - cron: '15 1,13 * * *'
 
   workflow_dispatch:
     inputs:

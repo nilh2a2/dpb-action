@@ -1,9 +1,9 @@
 name: sitemap-trends-discovery-whois
 
 on:
-  # Every 3 hours, staggered after SERP discovery.
+  # Twice daily, staggered after SERP discovery.
   schedule:
-    - cron: '30 */3 * * *'
+    - cron: '30 1,13 * * *'
 
   workflow_dispatch:
     inputs:

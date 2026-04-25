@@ -1,10 +1,9 @@
 name: sitemap-trends-google-trends-refresh
 
 on:
-  # Every 90 minutes, staggered away from scan/discovery runs.
+  # Every 30 minutes. Keep each run short so schedules can land on different hosted runners.
   schedule:
-    - cron: '45 */3 * * *'
-    - cron: '15 2-23/3 * * *'
+    - cron: '*/30 * * * *'
 
   workflow_dispatch:
     inputs:
@@ -23,5 +22,5 @@ jobs:
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment || 'production' }}
-      timeout-minutes: 30
+      timeout-minutes: 10
       command: sitemap-trends google-trends-refresh
