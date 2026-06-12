@@ -17,6 +17,16 @@ on:
         description: 'Command to execute (e.g., "newspaper exec", "sitemap-trends scan")'
         required: true
         type: string
+      enable-sing-box-proxy:
+        description: 'Start the container-local sing-box proxy'
+        required: false
+        type: boolean
+        default: false
+      google-trends-proxy-url:
+        description: 'Proxy URL used only by the Google Trends client'
+        required: false
+        type: string
+        default: ''
 
 jobs:
   execute:
@@ -58,6 +68,8 @@ jobs:
           APP_EXTERNAL_SERVICE_SERPAPI_API_KEY: ${{ secrets.APP_EXTERNAL_SERVICE_SERPAPI_API_KEY }}
           APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY: ${{ secrets.APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY }}
           APP_EXTERNAL_SERVICE_ZENSERP_API_KEY: ${{ secrets.APP_EXTERNAL_SERVICE_ZENSERP_API_KEY }}
+          SING_BOX_CONFIG_JSON: ${{ inputs.enable-sing-box-proxy && secrets.SING_BOX_CONFIG_JSON || '' }}
+          APP_EXTERNAL_SERVICE_GOOGLE_TRENDS_PROXY_URL: ${{ inputs.google-trends-proxy-url }}
         run: |
           docker run --rm \
             -e APP_ENVIRONMENT_DEV=$APP_ENVIRONMENT_DEV \
@@ -69,4 +81,6 @@ jobs:
             -e APP_EXTERNAL_SERVICE_SERPAPI_API_KEY=$APP_EXTERNAL_SERVICE_SERPAPI_API_KEY \
             -e APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY=$APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY \
             -e APP_EXTERNAL_SERVICE_ZENSERP_API_KEY=$APP_EXTERNAL_SERVICE_ZENSERP_API_KEY \
+            -e SING_BOX_CONFIG_JSON \
+            -e APP_EXTERNAL_SERVICE_GOOGLE_TRENDS_PROXY_URL \
             ghcr.io/nilh2a2/data-pipeline-bot:latest ${{ inputs.command }}

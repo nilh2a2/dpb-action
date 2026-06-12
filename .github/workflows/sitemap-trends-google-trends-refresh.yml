@@ -24,3 +24,5 @@ jobs:
       environment: ${{ github.event.inputs.environment || 'production' }}
       timeout-minutes: 10
       command: sitemap-trends google-trends-refresh
+      enable-sing-box-proxy: true
+      google-trends-proxy-url: http://127.0.0.1:7890
