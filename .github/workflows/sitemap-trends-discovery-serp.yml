@@ -1,9 +1,9 @@
-name: sitemap-trends-game-serp-refresh
+name: sitemap-trends-discovery-serp
 
 on:
-  # Every 6 hours. Refresh SERP intent reports and discover candidate domains for known games.
+  # Twice daily. Discovery looks at older game cohorts, so frequent polling is unnecessary.
   schedule:
-    - cron: '15 */6 * * *'
+    - cron: '15 1,13 * * *'
 
   workflow_dispatch:
     inputs:
@@ -17,10 +17,10 @@ on:
         default: 'development'
 
 jobs:
-  sitemap-trends-game-serp-refresh:
+  sitemap-trends-discovery-serp:
     uses: ./.github/workflows/_base.yml
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment || 'production' }}
       timeout-minutes: 30
-      command: sitemap-trends game-serp-refresh
+      command: sitemap-trends discovery-domains-serp
