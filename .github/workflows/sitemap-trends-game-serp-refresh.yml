@@ -1,9 +1,9 @@
 name: sitemap-trends-game-serp-refresh
 
 on:
-  # Every 6 hours. Refresh SERP intent reports and discover candidate domains for known games.
+  # Four times per day. Refresh SERP intent reports and discover candidate domains for known games.
   schedule:
-    - cron: '15 */6 * * *'
+    - cron: '15 0,6,12,18 * * *'
 
   workflow_dispatch:
     inputs:
