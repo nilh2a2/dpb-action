@@ -22,5 +22,5 @@ jobs:
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment || 'production' }}
-      timeout-minutes: 15
+      timeout-minutes: 28
       command: sitemap-trends google-trends-refresh
