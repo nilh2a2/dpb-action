@@ -1,9 +1,9 @@
 name: sitemap-trends-game-metrics-refresh
 
 on:
-  # Every 30 minutes. Keep each run short so schedules can land on different hosted runners.
+  # Every 2 hours. Keep each run short so schedules can land on different hosted runners.
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '17 */2 * * *'
 
   workflow_dispatch:
     inputs:
