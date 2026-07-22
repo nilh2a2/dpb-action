@@ -1,4 +1,4 @@
-name: sitemap-trends-google-trends-refresh
+name: sitemap-trends-game-metrics-refresh
 
 on:
   # Every 30 minutes. Keep each run short so schedules can land on different hosted runners.
@@ -17,10 +17,10 @@ on:
         default: 'development'
 
 jobs:
-  sitemap-trends-google-trends-refresh:
+  sitemap-trends-game-metrics-refresh:
     uses: ./.github/workflows/_base.yml
     secrets: inherit
     with:
       environment: ${{ github.event.inputs.environment || 'production' }}
       timeout-minutes: 28
-      command: sitemap-trends google-trends-refresh
+      command: sitemap-trends game-metrics-refresh
