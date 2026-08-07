@@ -33,11 +33,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Pull Docker image
-        run: docker pull ghcr.io/nilh2a2/data-pipeline-bot:latest
+        run: docker pull ghcr.io/nilh2a2/sitemap-trends:latest
 
       - name: Print image info
         run: |
-          docker inspect ghcr.io/nilh2a2/data-pipeline-bot:latest \
+          docker inspect ghcr.io/nilh2a2/sitemap-trends:latest \
             --format 'RepoTags: {{.RepoTags}}{{"\n"}}RepoDigests: {{.RepoDigests}}'
 
       - name: Print workflow inputs
@@ -69,4 +69,4 @@ jobs:
             -e APP_EXTERNAL_SERVICE_SERPAPI_API_KEY=$APP_EXTERNAL_SERVICE_SERPAPI_API_KEY \
             -e APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY=$APP_EXTERNAL_SERVICE_SERPSTACK_ACCESS_KEY \
             -e APP_EXTERNAL_SERVICE_ZENSERP_API_KEY=$APP_EXTERNAL_SERVICE_ZENSERP_API_KEY \
-            ghcr.io/nilh2a2/data-pipeline-bot:latest ${{ inputs.command }}
+            ghcr.io/nilh2a2/sitemap-trends:latest ${{ inputs.command }}
