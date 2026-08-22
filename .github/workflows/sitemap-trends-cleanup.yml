@@ -1,0 +1,25 @@
+name: sitemap-trends-cleanup
+
+on:
+  schedule:
+    - cron: '30 3 * * *'
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - development
+          - production
+        default: 'production'
+
+jobs:
+  sitemap-trends-cleanup:
+    uses: ./.github/workflows/_base.yml
+    secrets: inherit
+    with:
+      environment: ${{ github.event.inputs.environment || 'production' }}
+      timeout-minutes: 180
+      command: sitemap-trends cleanup
